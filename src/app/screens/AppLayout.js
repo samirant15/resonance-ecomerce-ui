@@ -9,11 +9,11 @@ const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
 const routesArr = routesArray();
 
-const AppLayout = ({ noSider, noTitle, noUser, noFooter, content }) => {
+const AppLayout = ({ noSider, noTitle, noUser, noFooter, content, logout }) => {
     return (
         <Layout>
             <Header className="header" style={styles.header}>
-                {!noUser && <LayoutUser />}
+                {!noUser && <LayoutUser logout={logout} />}
                 {!noTitle && <a href='/'><img style={{ height: '90%', objectFit: 'contain' }} src={logo} alt="logo" /></a>}
             </Header>
             <Layout style={{ height: '100%', flex: 1 }}>
@@ -25,7 +25,7 @@ const AppLayout = ({ noSider, noTitle, noUser, noFooter, content }) => {
     );
 }
 
-const LayoutUser = () => (
+const LayoutUser = ({ logout }) => (
     <div style={{ float: 'right' }}>
         <Popover
             content={
@@ -37,7 +37,7 @@ const LayoutUser = () => (
                         <Button type="link" block><SettingOutlined /> Settings</Button>
                     </List.Item>
                     <List.Item style={{ padding: 0 }}>
-                        <Button onClick={() => history.push("/")} type="link" block> <LogoutOutlined /> Log out</Button>
+                        <Button onClick={logout} type="link" block> <LogoutOutlined /> Log out</Button>
                     </List.Item>
                 </List>
             }
@@ -118,7 +118,7 @@ const styles = {
         margin: '1%',
     },
     header: {
-        zIndex: 9000,
+        zIndex: 1000,
         backgroundColor: '#FFFFFF',
         borderBottom: "solid 2px #9B9B9B",
         boxShadow: "#0000004a 0px 4px 8px 0px"

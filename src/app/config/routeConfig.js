@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingOutlined } from '@ant-design/icons';
-import Login from '../screens/Login';
+import Login from '../containers/LoginContainer';
 import Catalog from '../screens/Catalog';
 import SignUp from '../screens/SignUp';
 
@@ -34,6 +34,7 @@ export const routes = {
 };
 
 const notFoundRedirectPath = routes.login.path;
+export const mainScreen = routes.catalog.path;
 
 export function onNotFoundRedirect(path) {
     if (!routesArray().find((r, i) => r.path === path))
