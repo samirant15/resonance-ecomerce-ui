@@ -66,6 +66,11 @@ function* getAll(action) {
 }
 function* get(action) {
     try {
+
+        if (action.payload.id === null) {
+            yield put({ type: actions.FURNITURE.GET.SUCCESS, payload: null });
+        }
+
         const query = `
         {
             furniture (id: "${action.payload.id}") {

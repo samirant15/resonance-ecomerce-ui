@@ -31,10 +31,10 @@ const LayoutUser = ({ logout, loggedUser }) => (
             content={
                 <List>
                     <List.Item style={{ padding: 0 }}>
-                        <Button type="link" block> <UserOutlined /> My Account</Button>
+                        <Button type="link" style={{ cursor: 'default' }} block> <UserOutlined /> My Account</Button>
                     </List.Item>
                     <List.Item style={{ padding: 0 }}>
-                        <Button type="link" block><SettingOutlined /> Settings</Button>
+                        <Button type="link" style={{ cursor: 'default' }} block><SettingOutlined /> Settings</Button>
                     </List.Item>
                     <List.Item style={{ padding: 0 }}>
                         <Button onClick={logout} type="link" block> <LogoutOutlined /> Log out</Button>

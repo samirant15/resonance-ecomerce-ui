@@ -1,6 +1,6 @@
 import { generateTypes } from '../core/typeGenerator';
 
-export const FURNITURE = generateTypes(['GET_ALL', 'GET'], 'FURNITURE');
+export const FURNITURE = generateTypes(['GET_ALL', 'GET', 'SELECT'], 'FURNITURE');
 
 export const getAll = (offset) => {
     return {

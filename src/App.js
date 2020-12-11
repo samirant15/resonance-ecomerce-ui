@@ -7,6 +7,7 @@ import { onNotFoundRedirect, routesArray } from './app/config/routeConfig';
 import AppLayoutContainer from './app/containers/AppLayoutContainer';
 import store from './app/redux/config/config';
 import './antd.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const routes = routesArray();
 

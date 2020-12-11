@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Typography, List, Card } from 'antd';
+import { Typography, List, Card, Modal, Row, Col, Divider, Tag, Button } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Carousel } from 'react-responsive-carousel';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Meta } = Card;
 
 const Catalog = (props) => {
@@ -40,18 +41,100 @@ const Catalog = (props) => {
                     dataSource={props.furnitures}
                     renderItem={furniture => (
                         <List.Item>
-                            <Card
-                                style={{ height: 400 }}
-                                hoverable
-                                cover={<img alt="Furniture" src={furniture.picture[0].url} style={{ width: '100%', maxHeight: 300, objectFit: 'fill' }} />}
-                            >
-                                <Meta title={furniture.name} description={'$' + furniture.unitCost} style={{ position: 'absolute', bottom: 20, width: '100%' }} />
-                            </Card>
+                            <FurnitureCard furniture={furniture} getFurniture={props.getFurniture} />
                         </List.Item>
                     )}
                 />
             </InfiniteScroll>
+            <Modal
+                title={'Furniture'}
+                centered
+                visible={props.furniture}
+                // onOk={() => setVisible(false)}
+                onCancel={() => props.getFurniture(null)}
+                width={'80%'}
+                footer={[
+                    <Button key={1} type="default" onClick={() => props.getFurniture(null)}>
+                        Close
+                    </Button>,
+                    <Button key={2} type="primary" onClick={null}>
+                        Request Info
+                    </Button>,
+                ]}
+            >
+                <FurnitureCardFull furniture={props.furniture} />
+            </Modal>
         </>
+    )
+}
+
+const FurnitureCard = ({ furniture, getFurniture }) => {
+    return (
+        <Card
+            style={{ height: 400 }}
+            hoverable
+            cover={<img alt="Furniture" src={furniture.picture[0].url} style={{ width: '100%', maxHeight: 300, objectFit: 'fill' }} />}
+            onClick={() => getFurniture(furniture.id)}
+        >
+            <Meta title={furniture.name} description={'$' + furniture.unitCost} style={{ position: 'absolute', bottom: 20, width: '100%' }} />
+        </Card>
+    )
+}
+
+const FurnitureCardFull = ({ furniture }) => {
+    return (
+        <div>
+            <Row>
+                <Col span={12}>
+                    <Carousel showArrows={true}>
+                        {
+                            furniture.picture.map((picture, i) => (
+                                <div key={i} style={{ backgroundColor: '#FFFFFF' }}>
+                                    <img alt="Furniture" src={picture.url} style={{ width: '100%', maxHeight: 300, objectFit: 'contain' }} />
+                                </div>
+                            )
+                            )
+                        }
+                    </Carousel>
+                </Col>
+                <Col span={12}>
+                    <Row>
+                        <Col span={12}>
+                            <Title level={4}>
+                                {furniture.name} {furniture.inStock ? <Tag color="green">In Stock</Tag> : <Tag color="red">Out of Stock</Tag>}
+                            </Title>
+                        </Col>
+                        <Col span={12}><Title level={5} style={{ fontWeight: 'bold', float: 'right' }}>{'$' + furniture.unitCost}</Title></Col>
+                    </Row>
+                    <Row><a href={furniture.link} style={{ color: '#00A6ED' }}>{furniture.link}</a></Row>
+                    <Divider />
+                    <Row>
+                        <Col span={12}>
+                            <Title level={5}>Materials and Finishes:</Title>
+                            {
+                                furniture.materialsAndFinishes.map((txt, i) => (
+                                    <Tag color="magenta" key={i}>{txt}</Tag>
+                                ))
+                            }
+                            <Title level={5}>Settings:</Title>
+                            {
+                                furniture.settings.map((txt, i) => (
+                                    <Tag color="blue" key={i}>{txt}</Tag>
+                                ))
+                            }
+                        </Col>
+                        <Col span={12}>
+                            <Title level={5}>Size:</Title>
+                            <Text type="secondary">{furniture.size}</Text>
+                        </Col>
+                    </Row>
+                    <Divider />
+                    <Row>
+                        {furniture.description}
+                    </Row>
+                </Col>
+            </Row>
+        </div>
     )
 }
 
