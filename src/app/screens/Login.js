@@ -16,7 +16,7 @@ const Login = (props) => {
                             title={<img style={{ width: '100%', objectFit: 'contain' }} src={logo} alt="logo" />}
                         >
                             <Formik
-                                initialValues={{ email: 'samirant15@gmail.com', password: '123123123' }}
+                                initialValues={{ email: '', password: '' }}
                                 onSubmit={values => props.login(values)}
                             >
                                 {formikProps => (
