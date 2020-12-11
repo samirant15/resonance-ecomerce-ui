@@ -16,7 +16,7 @@ const AppLayout = ({ noSider, noTitle, noUser, noFooter, content, logout, logged
                 {!noUser && <LayoutUser logout={logout} loggedUser={loggedUser} />}
                 {!noTitle && <a href='/'><img style={{ height: '90%', objectFit: 'contain' }} src={logo} alt="logo" /></a>}
             </Header>
-            <Layout>
+            <Layout style={{ minHeight: '80vh' }}>
                 {!noSider && <LayoutSider />}
                 <Content style={styles.content}>{content}</Content>
             </Layout>

@@ -1,6 +1,6 @@
 import { generateTypes } from '../core/typeGenerator';
 
-export const FURNITURE = generateTypes(['GET_ALL', 'GET', 'SELECT'], 'FURNITURE');
+export const FURNITURE = generateTypes(['GET_ALL', 'GET', 'SEND_INFO'], 'FURNITURE');
 
 export const getAll = (offset) => {
     return {
@@ -13,5 +13,12 @@ export const get = (id) => {
     return {
         type: FURNITURE.GET.REQUEST,
         payload: { id }
+    }
+}
+
+export const sendInfo = (id, email) => {
+    return {
+        type: FURNITURE.SEND_INFO.REQUEST,
+        payload: { id, email }
     }
 }

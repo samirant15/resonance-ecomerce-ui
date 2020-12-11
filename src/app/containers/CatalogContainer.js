@@ -11,6 +11,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getFurniture: (id) => dispatch(furnitureActions.get(id)),
         getAllFurnitures: (offset) => dispatch(furnitureActions.getAll(offset)),
+        sendInfo: (id, email) => dispatch(furnitureActions.sendInfo(id, email)),
     }
 }
 
@@ -19,6 +20,7 @@ const mapStateToProps = (state) => {
         furniture: state.furnitureReducer.furniture,
         furnitures: state.furnitureReducer.furnitures ? (state.furnitureReducer.furnitures.records || []) : [],
         offset: state.furnitureReducer.furnitures ? (state.furnitureReducer.furnitures.offset || null) : null,
+        loggedUser: state.userReducer.loggedUser,
     }
 }
 

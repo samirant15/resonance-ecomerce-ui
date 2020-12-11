@@ -64,6 +64,7 @@ function* getAll(action) {
         notification.error({ message: 'Error loading furnitures! \n Try again later' });
     }
 }
+
 function* get(action) {
     try {
 
@@ -142,9 +143,39 @@ function* get(action) {
     }
 }
 
+function* sendInfo(action) {
+    try {
+        const query = `
+        {
+            furnitureSend (id: "${action.payload.id}", email: "${action.payload.email}") {
+                sent
+            }
+        }
+        `;
+
+        const res = yield call(graphqlClient.requestWithAuth, query);
+
+        let sent = res.data.data.furnitureSend.sent;
+        if (sent == true) {
+            yield put({ type: actions.FURNITURE.SEND_INFO.SUCCESS });
+            notification.success({ message: 'Email send to ' + action.payload.email });
+        } else {
+            notification.error({ message: 'Error sending email! \n Try again later' });
+        }
+    } catch (error) {
+        yield put({ type: actions.FURNITURE.SEND_INFO.FAIL, payload: error.message })
+        if (error instanceof GraphQLError) {
+            notification.error({ message: 'Error! \n ' + error.message });
+            return
+        }
+        notification.error({ message: 'Error sending email! \n Try again later' });
+    }
+}
+
 function* mySaga() {
     yield takeLatest(actions.FURNITURE.GET_ALL.REQUEST, getAll);
     yield takeLatest(actions.FURNITURE.GET.REQUEST, get);
+    yield takeLatest(actions.FURNITURE.SEND_INFO.REQUEST, sendInfo);
 }
 
 export default mySaga;

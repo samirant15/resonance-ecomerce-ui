@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, List, Card, Modal, Row, Col, Divider, Tag, Button } from 'antd';
+import { Typography, List, Card, Modal, Row, Col, Divider, Tag, Button, Popconfirm } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Carousel } from 'react-responsive-carousel';
@@ -57,9 +57,21 @@ const Catalog = (props) => {
                     <Button key={1} type="default" onClick={() => props.getFurniture(null)}>
                         Close
                     </Button>,
-                    <Button key={2} type="primary" onClick={null}>
-                        Request Info
-                    </Button>,
+                    <span key={2}>
+                        {
+                            props.loggedUser && (
+                                <Popconfirm
+                                    placement="top"
+                                    title={`Information will be emailed to ${props.loggedUser.email}`}
+                                    onConfirm={() => props.sendInfo(props.furniture.id, props.loggedUser.email)}
+                                    okText="Send"
+                                    cancelText="Cancel"
+                                >
+                                    <Button type="primary">Request Info</Button>
+                                </Popconfirm>
+                            )
+                        }
+                    </span>
                 ]}
             >
                 <FurnitureCardFull furniture={props.furniture} />
