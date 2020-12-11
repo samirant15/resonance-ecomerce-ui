@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingOutlined } from '@ant-design/icons';
 import Login from '../containers/LoginContainer';
-import Catalog from '../screens/Catalog';
+import Catalog from '../containers/CatalogContainer';
 import SignUp from '../containers/SignUpContainer';
 
 export const routes = {

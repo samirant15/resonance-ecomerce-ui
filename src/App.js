@@ -18,32 +18,30 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Layout style={{ height: "100vh" }}>
-        <Router history={history}>
-          {
-            routes.map((r, i) => {
-              return (
-                <Route
-                  exact
-                  key={i}
-                  path={r.path}
-                  render={
-                    () => (
-                      <AppLayoutContainer
-                        noSider={r.noSider ? r.noSider : false}
-                        noTitle={r.noTitle ? r.noTitle : false}
-                        noUser={r.noUser ? r.noUser : false}
-                        noFooter={r.noFooter ? r.noFooter : false}
-                        content={r.content}
-                      />
-                    )
-                  }
-                />
-              )
-            })
-          }
-        </Router>
-      </Layout>
+      <Router history={history}>
+        {
+          routes.map((r, i) => {
+            return (
+              <Route
+                exact
+                key={i}
+                path={r.path}
+                render={
+                  () => (
+                    <AppLayoutContainer
+                      noSider={r.noSider ? r.noSider : false}
+                      noTitle={r.noTitle ? r.noTitle : false}
+                      noUser={r.noUser ? r.noUser : false}
+                      noFooter={r.noFooter ? r.noFooter : false}
+                      content={r.content}
+                    />
+                  )
+                }
+              />
+            )
+          })
+        }
+      </Router>
     </Provider>
   );
 }

@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import history from '../../history';
 import { routes, routesArray } from '../config/routeConfig';
 import { Layout, Menu, Typography, Button, Avatar, Popover, List } from 'antd';
-import { UserOutlined, SettingOutlined, LogoutOutlined, ThunderboltTwoTone, FireTwoTone } from '@ant-design/icons';
+import { UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import logo from '../../assets/resonance_logo.png';
 
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
 const routesArr = routesArray();
 
-const AppLayout = ({ noSider, noTitle, noUser, noFooter, content, logout }) => {
+const AppLayout = ({ noSider, noTitle, noUser, noFooter, content, logout, loggedUser }) => {
     return (
         <Layout>
             <Header className="header" style={styles.header}>
-                {!noUser && <LayoutUser logout={logout} />}
+                {!noUser && <LayoutUser logout={logout} loggedUser={loggedUser} />}
                 {!noTitle && <a href='/'><img style={{ height: '90%', objectFit: 'contain' }} src={logo} alt="logo" /></a>}
             </Header>
-            <Layout style={{ height: '100%', flex: 1 }}>
+            <Layout>
                 {!noSider && <LayoutSider />}
                 <Content style={styles.content}>{content}</Content>
             </Layout>
@@ -25,7 +25,7 @@ const AppLayout = ({ noSider, noTitle, noUser, noFooter, content, logout }) => {
     );
 }
 
-const LayoutUser = ({ logout }) => (
+const LayoutUser = ({ logout, loggedUser }) => (
     <div style={{ float: 'right' }}>
         <Popover
             content={
@@ -41,11 +41,13 @@ const LayoutUser = ({ logout }) => (
                     </List.Item>
                 </List>
             }
-            title={<p style={{ textAlign: 'center', margin: 0 }}>@Username</p>}
+            title={<p style={{ textAlign: 'center', margin: 0 }}>{loggedUser ? ('@' + loggedUser.username) : ''}</p>}
             placement="bottom"
             trigger="click"
         >
-            <Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size="large">U</Avatar>
+            <Avatar style={{ backgroundColor: '#F7AC35', verticalAlign: 'middle' }} size="large">
+                {loggedUser ? (loggedUser.firstName[0] + loggedUser.lastName[0]) : ''}
+            </Avatar>
         </Popover>
     </div>
 )

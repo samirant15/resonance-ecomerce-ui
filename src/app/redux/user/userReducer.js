@@ -26,6 +26,12 @@ export default (state = INIT_STATE, action) => {
                 ...state,
                 loading: false,
             }
+        // CHECK SESSION
+        case actions.USER.CHECK_SESSION.SUCCESS:
+            return {
+                ...state,
+                loggedUser: action.payload
+            }
         // SIGNUP
         case actions.USER.SIGNUP.REQUEST:
             return {

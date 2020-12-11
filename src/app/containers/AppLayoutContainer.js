@@ -7,7 +7,7 @@ const AppLayoutContainer = (props) => {
 
     useEffect(() => {
         props.checkSession();
-    });
+    }, []);
 
     return <AppLayout {...props} />
 };
